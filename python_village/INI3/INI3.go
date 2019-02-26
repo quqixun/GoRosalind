@@ -65,5 +65,4 @@ func main() {
 		words_string := strings.Join(words, " ")
 		fmt.Println(words_string)
 	}
-
 }

@@ -50,5 +50,4 @@ func main() {
 		os := odd_sum(a, b)
 		fmt.Println(os)
 	}
-
 }
