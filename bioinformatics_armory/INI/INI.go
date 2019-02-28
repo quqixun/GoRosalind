@@ -50,9 +50,9 @@ func main() {
 
   if is_load_success {
     counts := count_symbols(DNA)
-    counts_str := strconv.Itoa(counts["A"]) +
-                  strconv.Itoa(counts["C"]) +
-                  strconv.Itoa(counts["G"]) +
+    counts_str := strconv.Itoa(counts["A"]) + " " +
+                  strconv.Itoa(counts["C"]) + " " +
+                  strconv.Itoa(counts["G"]) + " " +
                   strconv.Itoa(counts["T"])
     fmt.Println(counts_str)
   }
