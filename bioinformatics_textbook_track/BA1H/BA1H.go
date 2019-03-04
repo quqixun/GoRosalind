@@ -1,33 +1,33 @@
 package main
 
 import (
-	"fmt"
-	"bufio"
-	"strconv"
-	"strings"
-	"io/ioutil"
+  "fmt"
+  "bufio"
+  "strconv"
+  "strings"
+  "io/ioutil"
 )
 
 
 func LoadData(file_path string) (string, string, int) {
 
-	b, err := ioutil.ReadFile(file_path)
-	if err != nil {
-		panic(err)
-	}
+  b, err := ioutil.ReadFile(file_path)
+  if err != nil {
+    panic(err)
+  }
 
-	t := string(b)
-	content := []string{}
-	scanner := bufio.NewScanner(strings.NewReader(t))
-	for scanner.Scan() {
-		content = append(content, scanner.Text())
-	}
+  t := string(b)
+  content := []string{}
+  scanner := bufio.NewScanner(strings.NewReader(t))
+  for scanner.Scan() {
+    content = append(content, scanner.Text())
+  }
 
-	text := content[1]
-	pattern := content[0]
-	d, _ := strconv.Atoi(content[2])
+  text := content[1]
+  pattern := content[0]
+  d, _ := strconv.Atoi(content[2])
 
-	return text, pattern, d
+  return text, pattern, d
 }
 
 
@@ -46,15 +46,15 @@ func HammingDistance(DNA1, DNA2 string) (int) {
 
 func ApproximateMatching(text, pattern string, d int) ([]int) {
 
-	idx := []int{}
-	for i := 0; i <= len(text) - len(pattern); i++ {
-		subtext := text[i:i + len(pattern)]
-		if HammingDistance(subtext, pattern) <= d {
-			idx = append(idx, i)
-		}
-	}
+  idx := []int{}
+  for i := 0; i <= len(text) - len(pattern); i++ {
+    subtext := text[i:i + len(pattern)]
+    if HammingDistance(subtext, pattern) <= d {
+      idx = append(idx, i)
+    }
+  }
 
-	return idx
+  return idx
 }
 
 
@@ -71,8 +71,8 @@ func IntSliceToString(int_slice []int) (string) {
 
 
 func main() {
-	
-	text, pattern, d := LoadData("rosalind_ba1h.txt")
-	idx := ApproximateMatching(text, pattern, d)
-	fmt.Println(IntSliceToString(idx))
+  
+  text, pattern, d := LoadData("rosalind_ba1h.txt")
+  idx := ApproximateMatching(text, pattern, d)
+  fmt.Println(IntSliceToString(idx))
 }
