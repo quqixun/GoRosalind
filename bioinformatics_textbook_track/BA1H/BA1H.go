@@ -58,10 +58,10 @@ func ApproximateMatching(text, pattern string, d int) ([]int) {
 }
 
 
-func IntSliceToString(int_slice []int) (string) {
+func IntSliceToString(ints []int) (string) {
 
   int_strs := []string{}
-  for _, i := range int_slice {
+  for _, i := range ints {
     int_strs = append(int_strs, strconv.Itoa(i))
   }
 

@@ -47,10 +47,10 @@ func PatternStartPositions(pattern, genome string) ([]int) {
 }
 
 
-func IntSliceToString(positions []int) (string) {
+func IntSliceToString(ints []int) (string) {
 
   int_strs := []string{}
-  for _, p := range positions {
+  for _, p := range ints {
     int_strs = append(int_strs, strconv.Itoa(p))
   }
 
