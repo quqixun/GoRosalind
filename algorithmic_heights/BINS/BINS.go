@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "math"
   "bufio"
   "strconv"
   "strings"
@@ -45,8 +46,51 @@ func LoadData(file_path string) (int, int, []int, []int) {
 }
 
 
+func BinarySearch(A []int, k int) (int) {
+
+  index := -1
+  low, high := 0, len(A)
+
+  for {
+    if low >= high {
+      break
+    }
+
+    mid := int(math.Floor(float64(low + high) / 2.0))
+    mid_value := A[mid]
+    if mid_value < k {
+      low = mid + 1
+    } else if mid_value > k {
+      high = mid
+    } else {
+      index = mid + 1
+      break
+    }
+  }
+
+  return index
+}
+
+
+func IntSliceToString(ints []int) (string) {
+
+  int_strs := []string{}
+  for _, p := range ints {
+    int_strs = append(int_strs, strconv.Itoa(p))
+  }
+
+  str := strings.Join(int_strs, " ")
+  return str
+}
+
+
 func main() {
   
-  n, m, A, K := LoadData("rosalind_bins.txt")
-  fmt.Print(n, m, A, K)
+  _, _, A, K := LoadData("rosalind_bins.txt")
+  
+  indices := []int{}
+  for _, k := range K {
+    indices = append(indices, BinarySearch(A, k))
+  }
+  fmt.Println(IntSliceToString(indices))
 }
