@@ -32,19 +32,6 @@ func LoadData(file_path string) (int, int, []string) {
 }
 
 
-func FindKMers(text []string, k int) (map[string]int) {
-
-  kmers := make(map[string]int)
-  for _, t := range text {
-    for i := 0; i <= len(t) - k; i++ {
-      kmers[t[i:i + k]] += 1
-    }
-  }
-  
-  return kmers
-}
-
-
 func NextIndex(ix []int, lens int) {
   for j := len(ix) - 1; j >= 0; j-- {
     ix[j]++
