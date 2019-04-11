@@ -35,7 +35,7 @@ func Factorial(n int) (r *big.Int) {
 }
 
 
-func CountSunset(n int) (*big.Int) {
+func CountSubset(n int) (*big.Int) {
 
   m := -1
   mod := math.Mod(float64(n), 2.0)
@@ -72,7 +72,7 @@ func CountSunset(n int) (*big.Int) {
 func main() {
   
   n := LoadData("rosalind_sset.txt")
-  count := CountSunset(n)
+  count := CountSubset(n)
   count = count.Mod(count, big.NewInt(1000000))
   fmt.Println(count.String())
 }
