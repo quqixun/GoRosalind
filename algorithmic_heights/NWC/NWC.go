@@ -53,29 +53,68 @@ func LoadData(file_path string) (int, [][][]int) {
 }
 
 
-func NegatuceWeightCycle(n int, edges [][]int) (bool) {
+func IsVisited(i int, visited []int) (bool) {
 
-  dist := []float64{}
-  for i := 0; i < n; i++ {
-    dist = append(dist, math.Inf(1))
-  }
-  dist[0] = 0
-
-  for i := 1; i < n; i++ {
-    for _, edge := range edges {
-      u, v, w := edge[0], edge[1], float64(edge[2])
-      if dist[u - 1] != math.Inf(1) &&
-         dist[u - 1] + w < dist[v - 1] {
-        dist[v - 1] = dist[u - 1] + w
-      }
+  for _, v := range visited {
+    if i == v {
+      return true
     }
   }
 
-  for _, edge := range edges {
-    u, v, w := edge[0], edge[1], float64(edge[2])
-    if dist[u - 1] != math.Inf(1) &&
-       dist[u - 1] + w < dist[v - 1] {
-      return true
+  return false
+}
+
+
+func NegatuceWeightCycle(n int, edges [][]int) (bool) {
+
+  sources := []int{}
+  visited := []int{}
+
+  for i := 0; i < n; i++ {
+    sources = append(sources, i)
+  }
+
+  for _, source := range sources {
+
+    if IsVisited(source, visited) {
+      continue
+    }
+
+    dist := []float64{}
+    for i := 0; i < n; i++ {
+      dist = append(dist, math.Inf(1))
+    }
+    dist[source] = 0
+    changes := true
+
+    for i := 0; i < len(edges); i++ {
+      if !changes {
+        break
+      }
+      changes = false
+
+      extra := false
+      if i == len(edges) - 1 {
+        extra = true
+      }
+
+      for _, edge := range edges {
+        u, v, w := edge[0], edge[1], float64(edge[2])
+        if dist[u - 1] != math.Inf(1) &&
+           (dist[v - 1] == math.Inf(1) || dist[u - 1] + w < dist[v - 1]) {
+          dist[v - 1] = dist[u - 1] + w
+          changes = true
+          if extra {
+            return true
+          }
+        }
+      }
+    }
+
+    for i, d := range dist {
+      if d != math.Inf(1) {
+        visited = append(visited, i)
+      }
     }
   }
 
